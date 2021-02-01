@@ -44,10 +44,10 @@ def parseStringDict(value: str):
 
 
 def main():
-	keyboard_data = loadCsv("keyboard.csv", {'key': parseStringDict})
+	keyboard_data = loadCsv("../HeadKraken Records/keyboard.csv", {'key': parseStringDict})
 
 	mouse_data = loadCsv(
-		"mouse.csv",
+		"../HeadKraken Records/mouse.csv",
 		{
 			'mouse_dx': lambda v: float(v),
 			'mouse_dy': lambda v: float(v),
@@ -56,7 +56,7 @@ def main():
 	)
 
 	mousebuttons_data = loadCsv(
-		"mousekey.csv", {'mouse_key': parseStringDict}
+		"../HeadKraken Records/mousekey.csv", {'mouse_key': parseStringDict}
 	)
 
 
