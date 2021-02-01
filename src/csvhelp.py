@@ -15,7 +15,7 @@ def loadCsv(filename: str, parser_funcs: dict = dict(), no_trace=False):
 	parser_funcs_keys = parser_funcs.keys()
 	csvrows_count = 0
 	csvcolumns_count = 0
-	trace('Loading \"' + filename + '\" CSV file...')
+	trace('Loading \"' + filename + '\" CSV file... ', end='', flush=True)
 	try:
 		with open(filename) as file_in:
 			reader = CsvReader(file_in)
@@ -38,7 +38,7 @@ def loadCsv(filename: str, parser_funcs: dict = dict(), no_trace=False):
 						value = parser_funcs[key](value)
 					data[key].append(value)
 	except Exception as e:
-		trace('failed. Error: ' + str(e))
+		trace('failed.\nError: ' + str(e))
 		return dict()
 	
 	trace('done. (' + str(csvcolumns_count * csvrows_count) + ' items)')
