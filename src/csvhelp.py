@@ -39,7 +39,7 @@ def loadCsv(filename: str, parser_funcs: dict = dict(), no_trace=False):
 					data[key].append(value)
 	except Exception as e:
 		trace('failed. Error: ' + str(e))
-		return list()
+		return dict()
 	
 	trace('done. (' + str(csvcolumns_count * csvrows_count) + ' items)')
 	return data

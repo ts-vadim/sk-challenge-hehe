@@ -1,34 +1,12 @@
-from csvhelp import *
-from util import *
+from csvhelp import loadCsv
+from util import profileFunction, parseStringDict
 
 
 def main():
-	print('No parsers:')
-	keyboard_data = profileFunction(
-		loadCsv,
-		"../HeadKraken Records/keyboard.csv"
-	)
+	key_data = loadCsv('../HeadKraken Records/keyboard.csv', {'key': parseStringDict})
 
-	print('\nparseTime():')
-	keyboard_data = profileFunction(
-		loadCsv,
-		"../HeadKraken Records/keyboard.csv",
-		{'time': parseTime}
-	)
-
-	print('\nparseStringDict():')
-	keyboard_data = profileFunction(
-		loadCsv,
-		"../HeadKraken Records/keyboard.csv",
-		{'key': parseStringDict}
-	)
-
-	print('\nBoth:')
-	keyboard_data = profileFunction(
-		loadCsv,
-		"../HeadKraken Records/keyboard.csv",
-		{'time': parseTime, 'key': parseStringDict}
-	)
+	for key in key_data.keys():
+		print('Key:', key, 'values:', len(key_data[key]))
 
 
 if __name__ == "__main__":
