@@ -1,2 +1,2 @@
-python kbsum.py
+python main.py
 pause
