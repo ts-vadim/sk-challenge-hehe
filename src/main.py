@@ -31,24 +31,50 @@ def loadCsv(filename: str, parser_funcs: dict = dict(), no_trace=False):
 				if row_i % 1000 == 0:
 					trace(str(row_i), '/', line_count_str, sep='', end='\r')
 	except Exception as e:
-		trace('failed.')
-		trace('Error: ' + str(e))
+		trace('failed. Error: ' + str(e))
 		return list()
 	trace(' ' * (len(line_count_str) * 3) + '\rdone.')
 	return data
 
 
-def parseStringDict(value: str):
+def parseStringDict(string: str):
 	# "{'A', 'B'}" -> "['A', 'B']"
-	return ast.literal_eval('[' + value[1:-1] + ']')
+	return ast.literal_eval('[' + string[1:-1] + ']')
+
+
+def parseTime(time_string: str):
+	# Input: 2021-02-01T17:25:12.284
+	date, time_point = time_string.split('T')
+
+	year, month, day = [int(e) for e in date.split('-')]
+	hour, minute, sec_ms = [e for e in time_point.split(':')]
+	hour = int(hour)
+	minute = int(minute)
+	second = int(sec_ms.split('.')[0])
+	millisecond = int(sec_ms.split('.')[1])
+
+	output = {
+		'text': time_string,
+		'year': year,
+		'month': month,
+		'day': day,
+		'hour': hour,
+		'min': minute,
+		'sec': second,
+		'ms': millisecond
+	}
+
+	return output
+
 
 
 def main():
-	keyboard_data = loadCsv("../HeadKraken Records/keyboard.csv", {'key': parseStringDict})
+	keyboard_data = loadCsv("../HeadKraken Records/keyboard.csv", {'time': parseTime, 'key': parseStringDict})
 
 	mouse_data = loadCsv(
 		"../HeadKraken Records/mouse.csv",
 		{
+			'time': parseTime,
 			'mouse_dx': lambda v: float(v),
 			'mouse_dy': lambda v: float(v),
 			'mouse_scroll': lambda v: int(v)
@@ -56,8 +82,12 @@ def main():
 	)
 
 	mousebuttons_data = loadCsv(
-		"../HeadKraken Records/mousekey.csv", {'mouse_key': parseStringDict}
+		"../HeadKraken Records/mousekey.csv", {'tim': parseTime, 'mouse_key': parseStringDict}
 	)
+
+	for row in keyboard_data:
+		print(row)
+		input()
 
 
 if __name__ == "__main__":
