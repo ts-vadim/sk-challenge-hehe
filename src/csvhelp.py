@@ -1,4 +1,4 @@
-from csv import reader
+from csv import reader as CsvReader
 
 
 # Return Data structure:
@@ -18,7 +18,7 @@ def loadCsv(filename: str, parser_funcs: dict = dict(), no_trace=False):
 	trace('Loading \"' + filename + '\" CSV file...')
 	try:
 		with open(filename) as file_in:
-			reader = reader(file_in)
+			reader = CsvReader(file_in)
 
 			# Save csv data to list
 			csvrows = list()
