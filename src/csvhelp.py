@@ -41,5 +41,5 @@ def loadCsv(filename: str, parser_funcs: dict = dict(), no_trace=False):
 		trace('failed.\nError: ' + str(e))
 		return dict()
 	
-	trace('done. (' + str(csvcolumns_count * csvrows_count) + ' items)')
+	trace('done. (' + str(csvrows_count) + ' rows)')
 	return data

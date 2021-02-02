@@ -38,3 +38,14 @@ def parseTime(time_string: str):
 	}
 	
 	return output
+
+
+def parseTimeMillis(time_string: str):
+	hours, minutes, sec_ms = time_string.split('T')[1].split(':')
+	hours = int(hours)
+	minutes = int(minutes)
+	seconds = int(sec_ms.split('.')[0])
+	millis = int(sec_ms.split('.')[1])
+
+	total = ((hours * 60 + minutes) * 60 + seconds) * 1000 + millis
+	return total
