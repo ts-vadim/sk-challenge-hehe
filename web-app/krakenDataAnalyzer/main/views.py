@@ -5,14 +5,7 @@ import os
 
 # Create your views here.
 def homepage(request):
-	return HttpResponse(
-		'''
-		<h1>Homepage</h1><br>
-		Try <a href="rinfo/">request info</a><br>
-		<a href="admin/">Admin</a><br>
-		<a href="tree/">Project tree</a><br>
-		'''
-	)
+	return render(request, 'main/index.html')
 
 
 def path_download(request, path: str):
@@ -26,7 +19,7 @@ def path_download(request, path: str):
 			response['Content-Disposition'] = 'inline; filename=' + path.split('/')[-1]
 			return response
 	return HttpResponse('File \"' + path + '\" not found')
-	
+
 
 
 def request_info(request):
