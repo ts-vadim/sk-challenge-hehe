@@ -1,6 +1,8 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import FileModel
+from .models import KrakenRecord
+from .models import SiteMember
 
-admin.site.register(FileModel)
+admin.site.register(KrakenRecord)
+admin.site.register(SiteMember)

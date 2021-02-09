@@ -1,0 +1,43 @@
+{% extends 'base/base.html' %}
+
+
+{% block title %}
+Homepage
+{% endblock %}
+
+
+{% block content %}
+    <!-- Main Header -->
+    <h1>Kraken Data Analyzer Homepage</h1>
+    <!-- Description -->
+    <p class="lead">Project description.</p>
+
+    <!-- Useful Links -->
+    <div class="text-center">
+        <p><h3>Useful Links:</h3></p>
+        <p class="text-white"><a href="{% url 'rinfo' %}" target="_blank" class="text-white">Get Request Info</a></p>
+        <p class="text-white"><a href="{% url 'tree' %}" target="_blank" class="text-white">View Project Tree</a></p>
+        <p class="text-white"><a href="admin/" target="_blank" class="text-white">Administration</a></p>
+    </div>
+
+    <!-- Members -->
+    <div class="text-center">
+        <p><h3>Members:</h3></p>
+        {% for member in members %}
+        <div>
+            {% if member.contact_url %}
+                <p><h5><a href="{{ member.contact_url }}" target="_blank" class="text-white">{{ member.name }}</a></h5></p>
+            {% else %}
+                <p><h5>{{ member.name }}</h5></p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    
+
+{% endblock %}
+
+
+{% block footer %}
+    <p>Check our <a target="_blank" href="https://github.com/ts-vadim/sk-challenge-hehe" class="text-white">GitHub repository</a></p>
+{% endblock %}
