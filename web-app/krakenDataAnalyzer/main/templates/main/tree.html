@@ -1,0 +1,33 @@
+{% extends 'base/base.html' %}
+
+
+{% block title %}
+Project Tree View
+{% endblock %}
+
+
+{% block content %}
+    <style>
+        #headline {
+            text-align: center;
+        }
+        #file-list {
+            background: transparent;
+            text-align: center;
+        }
+    </style>
+
+    <div id="headline">
+        <h2>Project files:</h2>
+    </div>
+
+    <div class="text-center" id="file-list">
+        {% for file, url in files %}
+            {% if url %}
+                <h6><a href="{{ url }}" target="_blank" class="text-white">{{ file }}</a></h6>
+            {% else %}
+                <h6>{{ file }}</h6>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

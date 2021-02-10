@@ -1,36 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<!-- where classes like bg-dark come from -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-    <title>Data Analyzer :: {% block title %}{% endblock %}</title>
-    
-    <style>
-        body {
-            padding-top: 5%;
-            
-        }
-        footer {
-            position: fixed;
-            bottom: 0;
-            left: inherit;
-            width: 100%;
-            height: 5%;
-            background: #262d46;
-        }
-    </style>
-
+	<title>Data Analyzer :: {% block title %}{% endblock %}</title>
+	<style>
+		html,body{
+			height: 100%;
+		}
+		#holder {
+			min-height: 100%;
+			position: relative;
+		}
+		#header {
+			height: 5%;
+			width: 100%;
+			background: #262d46;
+			text-align: center;
+		}
+		#body {
+			padding-bottom: 5%;
+			padding-top: 3%;
+		}
+		#footer {
+			bottom: 0;
+			height: 30px;
+			left: 0;
+			bottom: 0;
+			position: absolute;
+			right: 0;
+			text-align: center;
+			background-color: rgb(36, 34, 48);
+		}
+	</style>
 </head>
-<body class="bg-dark text-center">
 
-    <div class="cover-container"></div>
-    <main class="text-white">
-        {% block content %}{% endblock %}
-    </main>
+<body class="bg-dark">
+	<div id="holder">
+		<div id="header">
+			<a href="/" class="text-white"><strong>Home</strong></a>
+		</div>
 
-    <footer class="test-center text-white-50">
-        {% block footer %}{% endblock %}
-    </footer>
+		<div id="body" class="text-white">
+			{% block content %}{% endblock %}
+		</div>
 
+		<div id="footer" class="text-white-50">
+			<a target="_blank" href="https://github.com/ts-vadim/sk-challenge-hehe" class="text-white">Github project repository</a>
+		</div>
+	</div>
 </body>
+
 </html>
