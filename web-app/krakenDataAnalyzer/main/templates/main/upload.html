@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %}
+
+
+
+{% block title %}
+Upload
+{% endblock %}
+
+
+{% block content %}
+    <style>
+        #headline {
+            text-align: center;
+        }
+        #upload-list {
+            background: transparent;
+            text-align: center;
+        }
+    </style>
+
+    <div id="headline">
+        <h2>Uploaded Records:</h2>
+    </div>
+
+    <div id="upload-list">
+    {% if records %}
+        {% for record in records %}
+            <h6><a href="{{ record.file.url }}" target="_blank" class="text-white">{{ record.title }}</a></h6>
+        {% endfor %}
+    {% else %}
+        <p>No records.</p>
+    {% endif %}
+
+        <!-- Upload form. Note enctype attribute! -->
+        <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p><h2>Select record</h2></p>
+            <p>
+                {{ form.record_file.errors }}
+                {{ form.record_file }}
+            </p>
+            <p><input type="submit" value="Upload" /></p>
+        </form>
+    </div>
+{% endblock %}

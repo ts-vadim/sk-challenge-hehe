@@ -1,10 +1,29 @@
 {% extends 'base/base.html' %}
 
+
 <!--     Title     -->
 {% block title %}
 Homepage
 {% endblock %}
 
+
+<!--     Content     -->
+{% block header_content %}
+<style>
+    #header-admin-btn {
+        text-align: right;
+        vertical-align: middle;
+    }
+</style>
+
+<div id="header-admin-btn">
+    <form action="admin/" method="GET">
+        <button type="submit">
+            <label for="Admin">Admin</label>
+        </button>
+    </form>
+</div>
+{% endblock %}
 
 
 <!--     Content     -->
@@ -43,6 +62,7 @@ Homepage
         <p><h3>Useful Links:</h3></p>
         <h6><a href="{% url 'rinfo' %}" class="text-white">Get Request Info</a></h6>
         <h6><a href="{% url 'tree' %}" class="text-white">View Project Tree</a></h6>
+        <h6><a href="{% url 'upload' %}" class="text-white">Upload Record</a></h6>
         <h6><a href="admin/" class="text-white">Administration</a></h6>
     </div>
 
@@ -57,5 +77,4 @@ Homepage
             {% endif %}
         {% endfor %}
     </div>
-    
 {% endblock %}

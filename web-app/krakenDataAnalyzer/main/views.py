@@ -1,8 +1,31 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseServerError as Http500
-from main.models import SiteMember
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseServerError as Http500
+from django.template import RequestContext
 import os
 
+from .models import SiteMember
+from .models import KrakenRecord
+from .forms import RecordForm
+
+
+def upload(request):
+	# Handle file upload
+	if request.method == 'POST':
+		form = RecordForm(request.POST, request.FILES)
+		if form.is_valid():
+			new_record = KrakenRecord(file = request.FILES['record_file'], title=request.FILES['record_file'].name)
+			new_record.save()
+			# Redirect to the document list after POST
+			return HttpResponseRedirect('/upload')
+	else:
+		form = RecordForm() # A empty, unbound form
+	# Render list page with the documents and the form
+	records = KrakenRecord.objects.all()
+	return render(
+		request,
+		'main/upload.html',
+		{'records': records, 'form': form}
+	)
 
 
 def homepage(request):
@@ -15,7 +38,6 @@ def path_download(request, url_path: str):
 	# WTF
 	ospath = cwd + os.path.sep + url_path.replace('/', os.path.sep)
 	ospath = ospath.replace(os.path.sep * 2, os.path.sep)
-
 	if os.path.exists(ospath) and not os.path.isdir(ospath):
 		with open(ospath, 'rb') as file:
 			response = HttpResponse(file.read(), content_type="text/plain")# application/force-download
@@ -41,7 +63,6 @@ def request_info(request):
 	)
 	except Exception as e:
 		response = '<br>Exception:</b> ' + str(e)
-	
 	header = "<h1><a href=\"/\">Homepage</a></h1><br>"
 	return HttpResponse(header + response)
 
@@ -52,11 +73,9 @@ def project_tree(request):
 		'__init__.py',
 		'migrations'
 	]
-
 	tree = dict()
 	start_dir = os.getcwd()
 	files_to_render = list()
-
 	for path in os.walk(start_dir):
 		cwd = path[0]
 		dirs = path[1]
@@ -68,5 +87,4 @@ def project_tree(request):
 				continue
 			filepath = os.path.join(cwd.replace(start_dir, ''), file)
 			files_to_render.append((filepath, '/' + filepath))
-	
 	return render(request, 'main/tree.html', {'files': files_to_render})
